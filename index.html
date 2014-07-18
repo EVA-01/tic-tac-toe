@@ -1,0 +1,65 @@
+<html>
+	<head>
+		<title>Tic Tac Toe</title>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700|Raleway:200,400' rel='stylesheet' type='text/css'>
+		<link href='css/style.css' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/tic-tac-toe.js"></script>
+		<script type="text/javascript" src="js/game.js"></script>
+	</head>
+	<body>
+		<table id="inner">
+			<tr>
+				<td>
+					<div id="content">
+						<div id="content-top"></div>
+						<div id="player-slide">
+							<div class="slide-inner">
+								<h1>New game</h1>
+								<table>
+									<tr>
+										<td>
+											<h2>Player One</h2>
+											<ul>
+												<li id="one-human" class="active">Human</li>
+												<li id="one-computer">Computer</li>
+											</ul>
+										</td>
+										<td>
+											<h2>Player Two</h2>
+											<ul>
+												<li id="two-human">Human</li>
+												<li id="two-computer" class="active">Computer</li>
+											</ul>
+										</td>
+									</tr>
+								</table>
+								<button id="start">Start</button>
+							</div>
+						</div>
+						<div id="game-slide">
+							<table id="game">
+								<tr id="game-row-0">
+									<td id="game-box-00" class="row-0 column-0 empty" data-content="">&nbsp;</td>
+									<td id="game-box-10" class="row-0 column-1 empty" data-content="">&nbsp;</td>
+									<td id="game-box-20" class="row-0 column-2 empty" data-content="">&nbsp;</td>
+								</tr>
+								<tr id="game-row-1">
+									<td id="game-box-01" class="row-1 column-0 empty" data-content="">&nbsp;</td>
+									<td id="game-box-11" class="row-1 column-1 empty" data-content="">&nbsp;</td>
+									<td id="game-box-21" class="row-1 column-2 empty" data-content="">&nbsp;</td>
+								</tr>
+								<tr id="game-row-2">
+									<td id="game-box-02" class="row-2 column-0 empty" data-content="">&nbsp;</td>
+									<td id="game-box-12" class="row-2 column-1 empty" data-content="">&nbsp;</td>
+									<td id="game-box-22" class="row-2 column-2 empty" data-content="">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+						<div id="content-bottom"></div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

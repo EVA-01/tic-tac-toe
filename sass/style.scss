@@ -1,0 +1,161 @@
+@import "compass";
+@import "_normalize";
+$td-border: #aaa;
+$raleway: "Raleway", "Helvetica", "Arial Light", Arial, sans-serif;
+$roboto: Roboto, "Open Sans", "Helvetica Neue", Arial, sans-serif;
+$grey: #eee;
+@mixin button($width) {
+	background-color: #6daec6;
+	margin-top: 5px;
+	border: 1px solid shade(#6daec6, 8%);
+	@include border-radius(2px);
+	width: $width;
+	font-size: 14px;
+	line-height: 26px;
+	color: #fafafa;
+	@include text-shadow(1px 1px 0px rgba(#333, 0.2));
+	&:hover {
+		background-color: shade(#6daec6, 8%);
+		@include text-shadow(0px -1px 0px rgba(#333, 0.2));
+	}
+}
+body {
+	background-color: $grey;
+	font-family: $roboto;
+	color: #333;
+	width: 100%;
+	height: 100%;
+	#inner {
+		width: 100%;
+		height: 100%;
+		vertical-align: middle;
+	}
+	#content {
+		width: 500px;
+		margin: auto;
+		background-color: white;
+		border: 1px solid #e6e6e6;
+		padding: 0px;
+		#content-top, #content-bottom {
+			height: 100px;
+		}
+		#content-top {
+			line-height: 100px;
+			text-align: center;
+			font-family: $raleway;
+			font-weight: 200;
+			font-size: 18px;
+			letter-spacing: 1px;
+		}
+		#content-bottom {
+			span {
+				line-height: 100px;
+				height: 100px;
+				width: 300px;
+				margin: auto;
+				display: block;
+				button {
+					@include button(300px);
+				}
+			}
+		}
+		#player-slide {
+			width: 300px;
+			height: 300px;
+			margin: auto;
+			.slide-inner {
+				display: table-cell;
+				vertical-align: middle;
+				width: 300px;
+			}
+			h1 {
+				font-family: $raleway;
+				font-weight: 200;
+				padding-bottom: 5px;
+				border-bottom: 1px dotted $td-border;
+			}
+			h2 {
+				font-size: 16px;
+				font-weight: 500;
+			}
+			button {
+				@include button(100%);
+			}
+			table {
+				width: 100%;
+				td {
+					text-align: center;
+					ul {
+						list-style-type: none;
+						padding: 0px;
+						li {
+							cursor: default;
+							padding: 5px 0px;
+							background-color: transparent;
+							font-size: 12px;
+							line-height: 22px;
+							&.active {
+								font-weight: 700;
+							}
+						}
+						&:hover {
+							li:hover {
+								font-weight: 700;
+								cursor: pointer;
+							}
+							li.active:not(:hover) {
+								font-weight: normal;
+							}
+						}
+					}
+				}
+			}
+		}
+		#game-slide {
+			display:none;
+			#game {
+				border: none;
+				width: 300px;
+				height: 300px;
+				margin: auto;
+				td {
+					text-align: center;
+					font-family: $raleway;
+					font-weight: 200;
+					font-size: 32px;
+					overflow: hidden;
+					width: 30%;
+					heidth: 30%;
+					cursor: default;
+					-webkit-touch-callout: none;
+					-webkit-user-select: none;
+					-khtml-user-select: none;
+					-moz-user-select: none;
+					-ms-user-select: none;
+					user-select: none;
+					&.won {
+						font-weight: 400;
+					}
+					&.row-0 {
+						border-bottom: 1px solid $td-border;
+					}
+					&.row-2 {
+						border-top: 1px solid $td-border;
+					}
+					&.column-0 {
+						border-right: 1px solid $td-border;
+					}
+					&.column-2 {
+						border-left: 1px solid $td-border;
+					}
+				}
+				&.selecting {
+					td.empty:hover {
+						background-color: $grey;
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+}
