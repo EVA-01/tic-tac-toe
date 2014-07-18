@@ -10,27 +10,6 @@ Array::max = () ->
 Array::random = () ->
 	return this[Math.floor(Math.random() * this.length)]
 
-xwins = [
-	["X", "O", ""]
-	["O", "X", ""]
-	["O", "O", "X"]
-]
-owins = [
-	["O", "O", "O"]
-	["X", "", "X"]
-	["X", "", ""]
-]
-draw = [
-	["X", "O", "X"]
-	["O", "O", "X"]
-	["X", "X", "O"]
-]
-progress = [
-	["X", "O", ""]
-	["X", "O", ""]
-	["", "", ""]
-]
-
 TicTacToeAI =
 	sets: [
 		["00","01","02"]
