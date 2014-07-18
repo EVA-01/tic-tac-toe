@@ -28,11 +28,7 @@ game = {
   ai: function(protagonist, antagonist) {
     var lvl, move;
     lvl = game[protagonist.toLowerCase()] === "Player One" ? this.player1Level : this.player2Level;
-    if (lvl < 10) {
-      move = TicTacToeAI.getOptimum(this.getBoardValues(), protagonist, antagonist, (game[protagonist.toLowerCase()] === "Player One" ? this.player1Level : this.player2Level), true);
-    } else {
-      move = TicTacToeAI.getOptimum(this.getBoardValues(), protagonist, antagonist);
-    }
+    move = TicTacToeAI.getOptimum(this.getBoardValues(), protagonist, antagonist, lvl, true);
     if (move !== false) {
       this.makeMove(move, protagonist);
     }
@@ -42,8 +38,8 @@ game = {
   },
   player1: true,
   player2: false,
-  player1Level: 9,
-  player2Level: 9,
+  player1Level: 10,
+  player2Level: 10,
   turn: false,
   bench: false,
   x: false,

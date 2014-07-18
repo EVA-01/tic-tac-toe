@@ -27,8 +27,8 @@ game =
 		return
 	player1: true
 	player2: false
-	player1Level: 9
-	player2Level: 9
+	player1Level: 10
+	player2Level: 10
 	turn: false
 	bench: false
 	x: false
