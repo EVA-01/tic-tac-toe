@@ -26,8 +26,13 @@ game = {
     this.nextRound();
   },
   ai: function(protagonist, antagonist) {
-    var move;
-    move = TicTacToeAI.getOptimum(this.getBoardValues(), protagonist, antagonist);
+    var lvl, move;
+    lvl = game[protagonist.toLowerCase()] === "Player One" ? this.player1Level : this.player2Level;
+    if (lvl < 10) {
+      move = TicTacToeAI.getOptimum(this.getBoardValues(), protagonist, antagonist, (game[protagonist.toLowerCase()] === "Player One" ? this.player1Level : this.player2Level), true);
+    } else {
+      move = TicTacToeAI.getOptimum(this.getBoardValues(), protagonist, antagonist);
+    }
     if (move !== false) {
       this.makeMove(move, protagonist);
     }
@@ -37,6 +42,8 @@ game = {
   },
   player1: true,
   player2: false,
+  player1Level: 9,
+  player2Level: 9,
   turn: false,
   bench: false,
   x: false,
@@ -129,6 +136,8 @@ game = {
     }
   },
   init: function() {
+    this.player1Level = parseInt($("#one-range-container input").val());
+    this.player2Level = parseInt($("#two-range-container input").val());
     $("#player-slide").slideUp(function() {
       $("#game-slide").slideDown(function() {
         game.turn = ["Player One", "Player Two"].random();
@@ -157,15 +166,19 @@ $(document).ready(function() {
     switch (id) {
       case "one-computer":
         game.player1 = false;
+        $("#one-range-container").slideDown();
         break;
       case "one-human":
         game.player1 = true;
+        $("#one-range-container").slideUp();
         break;
       case "two-computer":
         game.player2 = false;
+        $("#two-range-container").slideDown();
         break;
       case "two-human":
         game.player2 = true;
+        $("#two-range-container").slideUp();
     }
     $(this).parents("ul").find(".active").removeClass("active");
     $(this).addClass("active");

@@ -18,7 +18,8 @@ game =
 		@nextRound()
 		return
 	ai: (protagonist, antagonist) ->
-		move=TicTacToeAI.getOptimum(@getBoardValues(), protagonist, antagonist)
+		lvl = if game[protagonist.toLowerCase()] is "Player One" then @player1Level else @player2Level
+		move=TicTacToeAI.getOptimum(@getBoardValues(), protagonist, antagonist, lvl, true)
 		@makeMove(move, protagonist) if move isnt false
 		return
 	human: (protagonist) ->
@@ -26,6 +27,8 @@ game =
 		return
 	player1: true
 	player2: false
+	player1Level: 9
+	player2Level: 9
 	turn: false
 	bench: false
 	x: false
@@ -83,6 +86,8 @@ game =
 			@human(@getMark(@turn))
 		return
 	init: () ->
+		@player1Level = parseInt($("#one-range-container input").val())
+		@player2Level = parseInt($("#two-range-container input").val())
 		$("#player-slide").slideUp () ->
 			$("#game-slide").slideDown () ->
 				game.turn = ["Player One", "Player Two"].random()
@@ -108,12 +113,16 @@ $(document).ready ()->
 		switch id
 			when "one-computer"
 				game.player1=false
+				$("#one-range-container").slideDown()
 			when "one-human"
 				game.player1=true
+				$("#one-range-container").slideUp()
 			when "two-computer"
 				game.player2=false
+				$("#two-range-container").slideDown()
 			when "two-human"
 				game.player2=true
+				$("#two-range-container").slideUp()
 		$(this).parents("ul").find(".active").removeClass("active")
 		$(this).addClass("active")
 		return

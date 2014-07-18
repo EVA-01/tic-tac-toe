@@ -81,10 +81,25 @@ body {
 			button {
 				@include button(100%);
 			}
+			#one-range-container, #two-range-container {
+				text-align: center;
+				font-size: 12px;
+				line-height: 24px;
+				margin-top: -10px;
+				margin-bottom: 10px;
+				input {
+					margin-left: 5px;
+					border: 1px solid $td-border;
+					padding: 5px;
+					width: 4em;
+					@include border-radius(2px);
+				}
+			}
 			table {
 				width: 100%;
 				td {
 					text-align: center;
+					vertical-align: top;
 					ul {
 						list-style-type: none;
 						padding: 0px;

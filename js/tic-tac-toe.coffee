@@ -66,12 +66,14 @@ TicTacToeAI =
 		j = @getEmptyCoordinates(board)
 		results = for c in j
 			r = @rankBox(board, c, protagonist, antagonist)
-			{
-				c: c
-				max: r.max()
-				count: r.count(r.max()),
-				r: r
-			}
+			if r.max isnt -1
+				{
+					c: c
+					max: r.max()
+					count: r.count(r.max()),
+					r: r
+				}
+			else
 		results.sort (a,b) ->
 			if a.max > b.max
 				return -1
@@ -95,15 +97,39 @@ TicTacToeAI =
 				best[n]
 			else
 		theverybest
-	getOptimum: (board, protagonist, antagonist) ->
-		bestP = @getOptimumPlacement(board, protagonist, antagonist).random()
-		bestA = @getOptimumPlacement(board, antagonist, protagonist).random()
+	getOptimum: (board, protagonist, antagonist, lvl = 10, some = false) ->
+		if some is false or lvl is 10
+			bestP = @getOptimumPlacement(board, protagonist, antagonist).random()
+			bestA = @getOptimumPlacement(board, antagonist, protagonist).random()
+		else
+			bestP = @getSomePlacement(board, protagonist, antagonist, lvl).random()
+			bestA = @getSomePlacement(board, antagonist, protagonist, lvl).random()
 		if bestP.max is 100 or (bestA.max isnt 100 and bestP.max isnt -1)
 			return bestP.c
 		else if bestA.max is 100
 			return bestA.c
 		else if bestP.max is -1
 			return false
+	getSomePlacement: (board, protagonist, antagonist, lvl) ->
+		j = @getEmptyCoordinates(board)
+		results = for c in j
+			r = @rankBox(board, c, protagonist, antagonist)
+			if r.max isnt -1
+				{
+					c: c
+					max: r.max()
+					count: r.count(r.max()),
+					r: r
+				}
+			else
+		results.sort (a,b) ->
+			if a.max > b.max
+				return -1
+			if a.max < b.max
+				return 1
+			if a.max = b.max
+				return 0
+		results[0..(9-lvl)]
 	isFutile: (board, protagonist, antagonist) ->
 		@getOptimumPlacement(board, protagonist, antagonist).random().max is 0 and @getOptimumPlacement(board, antagonist, protagonist).random().max is 0
 	checkGame: (board) ->

@@ -118,12 +118,16 @@ TicTacToeAI = {
       for (_i = 0, _len = j.length; _i < _len; _i++) {
         c = j[_i];
         r = this.rankBox(board, c, protagonist, antagonist);
-        _results.push({
-          c: c,
-          max: r.max(),
-          count: r.count(r.max()),
-          r: r
-        });
+        if (r.max !== -1) {
+          _results.push({
+            c: c,
+            max: r.max(),
+            count: r.count(r.max()),
+            r: r
+          });
+        } else {
+
+        }
       }
       return _results;
     }).call(this);
@@ -175,10 +179,21 @@ TicTacToeAI = {
     })();
     return theverybest;
   },
-  getOptimum: function(board, protagonist, antagonist) {
+  getOptimum: function(board, protagonist, antagonist, lvl, some) {
     var bestA, bestP;
-    bestP = this.getOptimumPlacement(board, protagonist, antagonist).random();
-    bestA = this.getOptimumPlacement(board, antagonist, protagonist).random();
+    if (lvl == null) {
+      lvl = 10;
+    }
+    if (some == null) {
+      some = false;
+    }
+    if (some === false || lvl === 10) {
+      bestP = this.getOptimumPlacement(board, protagonist, antagonist).random();
+      bestA = this.getOptimumPlacement(board, antagonist, protagonist).random();
+    } else {
+      bestP = this.getSomePlacement(board, protagonist, antagonist, lvl).random();
+      bestA = this.getSomePlacement(board, antagonist, protagonist, lvl).random();
+    }
     if (bestP.max === 100 || (bestA.max !== 100 && bestP.max !== -1)) {
       return bestP.c;
     } else if (bestA.max === 100) {
@@ -186,6 +201,41 @@ TicTacToeAI = {
     } else if (bestP.max === -1) {
       return false;
     }
+  },
+  getSomePlacement: function(board, protagonist, antagonist, lvl) {
+    var c, j, r, results;
+    j = this.getEmptyCoordinates(board);
+    results = (function() {
+      var _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = j.length; _i < _len; _i++) {
+        c = j[_i];
+        r = this.rankBox(board, c, protagonist, antagonist);
+        if (r.max !== -1) {
+          _results.push({
+            c: c,
+            max: r.max(),
+            count: r.count(r.max()),
+            r: r
+          });
+        } else {
+
+        }
+      }
+      return _results;
+    }).call(this);
+    results.sort(function(a, b) {
+      if (a.max > b.max) {
+        return -1;
+      }
+      if (a.max < b.max) {
+        return 1;
+      }
+      if (a.max = b.max) {
+        return 0;
+      }
+    });
+    return results.slice(0, +(9 - lvl) + 1 || 9e9);
   },
   isFutile: function(board, protagonist, antagonist) {
     return this.getOptimumPlacement(board, protagonist, antagonist).random().max === 0 && this.getOptimumPlacement(board, antagonist, protagonist).random().max === 0;
